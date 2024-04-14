@@ -5,8 +5,8 @@
 		"primary": {
 			"heading": {
 				"__TYPE__": "FieldContent",
-				"value": "biggest",
-				"type": "Text"
+				"type": "Text",
+				"value": "Experience"
 			}
 		},
 		"items": [
@@ -17,24 +17,24 @@
 						"title",
 						{
 							"__TYPE__": "FieldContent",
-							"value": "half",
-							"type": "Text"
+							"type": "Text",
+							"value": "Senior Interactive Designer"
 						}
 					],
 					[
 						"time_period",
 						{
 							"__TYPE__": "FieldContent",
-							"value": "soap",
-							"type": "Text"
+							"type": "Text",
+							"value": "2019 - Present"
 						}
 					],
 					[
 						"institution",
 						{
 							"__TYPE__": "FieldContent",
-							"value": "when",
-							"type": "Text"
+							"type": "Text",
+							"value": "Google"
 						}
 					],
 					[
@@ -45,8 +45,55 @@
 								{
 									"type": "paragraph",
 									"content": {
-										"text": "Ullamco tempor ea sunt. Sint id aliqua amet anim tempor dolore sint ut cillum minim cillum tempor laboris eu."
-									}
+										"text": "Led the design team in creating visually stunning and interactive web experiences. Implemented cutting-edge UI/UX designs, collaborated with developers to bring concepts to life, and ensured brand consistency across digital platforms.",
+										"spans": []
+									},
+									"direction": "ltr"
+								}
+							]
+						}
+					]
+				]
+			},
+			{
+				"__TYPE__": "GroupItemContent",
+				"value": [
+					[
+						"title",
+						{
+							"__TYPE__": "FieldContent",
+							"type": "Text",
+							"value": "Senior Interactive Designer"
+						}
+					],
+					[
+						"time_period",
+						{
+							"__TYPE__": "FieldContent",
+							"type": "Text",
+							"value": "2019 - Present"
+						}
+					],
+					[
+						"institution",
+						{
+							"__TYPE__": "FieldContent",
+							"type": "Text",
+							"value": "Google"
+						}
+					],
+					[
+						"description",
+						{
+							"__TYPE__": "StructuredTextContent",
+							"value": [
+								{
+									"type": "paragraph",
+									"content": {
+										"text": "Led the design team in creating visually stunning and interactive web experiences. Implemented cutting-edge UI/UX designs, collaborated with developers to bring concepts to life, and ensured brand consistency across digital platforms.",
+										"spans": []
+									},
+									"direction": "ltr"
 								}
 							]
 						}
