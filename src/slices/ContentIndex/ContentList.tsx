@@ -5,6 +5,7 @@ import Link from 'next/link';
 import React, { useEffect, useRef, useState } from 'react'
 import { MdArrowOutward } from 'react-icons/md';
 
+
 type ContentListProps = {
     items: Content.BlogPostDocument[] | Content.ProjectDocument[];
     contentType: Content.ContentIndexSlice["primary"]["content_type"];
@@ -22,7 +23,7 @@ export default function ContentList({
     const revealRef = useRef(null);
     const itemsRef = useRef<Array<HTMLLIElement | null>>([]);
     const [currentItem, setCurrentItem] = useState<null | number>(null);
-
+    // const [hovering, setHovering] = useState(false);
     const lastMousePos = useRef({ x: 0, y: 0});
 
     const urlPrefix = contentType === "Blog"?"/blog":"/projects";
@@ -81,6 +82,14 @@ export default function ContentList({
             window.removeEventListener("mousemove", handleMouseMove);
         };
     },[currentItem]);
+    
+    const onMouseEnter = (index: number)=>{
+        setCurrentItem(index);
+    };
+
+    const onMouseLeave = ()=> {
+        setCurrentItem(null);
+    };
 
     const contentImages = items.map((item)=> {
         const image = isFilled.image(item.data.hover_image)
@@ -103,53 +112,53 @@ export default function ContentList({
         });
     }, [contentImages]);
 
-    const onMouseEnter = (index: number)=>{
-        setCurrentItem(index);
-    };
-
-    const onMouseLeave = ()=> {
-        setCurrentItem(null);
-    };
 
   return (
-    <div ref={component}>
-        <ul className="grid border-b border-b-slate-100"
-        onMouseLeave={onMouseLeave}>
-            {items.map((item,index)=>(
-                <>
-                {isFilled.keyText(item.data.title)&&(
+    <>
+    <ul
+      ref={component}
+      className="grid border-b border-b-slate-100"
+      onMouseLeave={onMouseLeave}
+    >
+      {items.map((post, index) => (
+        <li
+          key={index}
+        //   ref={(el) => (itemsRef.current[index] = el)}
+          onMouseEnter={() => onMouseEnter(index)}
+          className="list-item opacity-0"
+        >
+          <a
+            href={`${urlPrefix}/${post.uid}`}
+            className="flex flex-col justify-between border-t border-t-slate-100 py-10  text-slate-200 md:flex-row "
+            aria-label={post.data.title || ""}
+          >
+            <div className="flex flex-col">
+              <span className="text-3xl font-bold">{post.data.title}</span>
+              <div className="flex gap-3 text-yellow-400">
+                {post.tags.map((tag, index) => (
+                  <span key={index} className="text-lg font-bold">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <span className="ml-auto flex items-center gap-2 text-xl font-medium md:ml-0">
+              {viewMoreText} <MdArrowOutward />
+            </span>
+          </a>
+        </li>
+      ))}
 
-                    <li key={index} className="list-item opacity-0f"
-                    onMouseEnter={()=> onMouseEnter(index)}
-                    ref={(el)=>(itemsRef.current[index] = el)}
-                    >
-                    <Link href={urlPrefix + "/" + item.uid} className="flex flex-col justify-between border-t border-t-slate-100 py-10 text-slate-200 md:flex-row"
-                    aria-label={item.data.title}
-                    >
-                <div className="flex flex-col">
-                    <span className="text-3xl font-bold">{item.data.title}</span>
-                    <div className="flex gap-3 text-yellow-400 text text-lg font-bold">{item.tags.map((tag,index)=>(
-                        <span key={index}>{tag}</span>
-                    ))}</div>
-                    </div> 
-                    
-                <span className="ml-auto flex items-center gap-2 text-xl font-medium md:ml-0">{viewMoreText} <MdArrowOutward/>
-                </span>
-                    </Link>
-                    </li>
-                    )}
-                    </>
-            ))}
-        </ul>
-        {/* {Hover Element} */}
-        <div className="hover-reveal pointer-events-none absolute left-0
-        top-0 -z-10 h-[320px] w-[220px] rounded-lg bg-over bg-center opacity-0f transition-[background] duration-300"
+      {/* Hover element */}
+      <div
+        className="hover-reveal pointer-events-none absolute left-0 top-0 -z-10 h-[320px] w-[220px] rounded-lg bg-cover bg-center opacity-0 transition-[background] duration-300"
         style={{
-            backgroundImage:
-            currentItem!=null ? `url(${contentImages[currentItem]})`: "",
+          backgroundImage:
+            currentItem !== null ? `url(${contentImages[currentItem]})` : "",
         }}
         ref={revealRef}
-        > </div>
-    </div>
+      ></div>
+    </ul>
+  </>
   )
 }
