@@ -1,27 +1,28 @@
-import Bounded from "@/components/Bounded";
-import Heading from "@/components/Heading";
 import { Content, isFilled } from "@prismicio/client";
 import { PrismicRichText, SliceComponentProps } from "@prismicio/react";
-import ContentList from "./ContentList";
 import { createClient } from "@/prismicio";
+import ContentList from "./ContentList";
+import Bounded from "@/components/Bounded";
+import Heading from "@/components/Heading";
+/**
+ * Props for `BlogPostIndex`.
+ */
+export type ContentIndexProps =
+  SliceComponentProps<Content.ContentIndexSlice>;
 
 /**
- * Props for `ContentIndex`.
+ * Component for "BlogPostIndex" Slices.
  */
-export type ContentIndexProps = SliceComponentProps<Content.ContentIndexSlice>;
-
-/**
- * Component for "ContentIndex" Slices.
- */
-const ContentIndex = async ({ slice, }: ContentIndexProps): Promise<JSX.Element> => {
-
+const ContentIndex = async ({
+  slice,
+}: ContentIndexProps): Promise<JSX.Element> => {
   const client = createClient();
   const blogPosts = await client.getAllByType("blog_post");
   const projects = await client.getAllByType("project");
 
-  const contentType = slice.primary.content_type || "Blog"
+  const contentType = slice.primary.content_type || "Blog";
 
-  const items = contentType === "Blog" ? blogPosts : projects;
+  const items = contentType ==="Blog" ? blogPosts : projects;
 
   return (
     <Bounded
@@ -36,8 +37,11 @@ const ContentIndex = async ({ slice, }: ContentIndexProps): Promise<JSX.Element>
           <PrismicRichText field={slice.primary.description} />
         </div>
       )}
-      <ContentList items={items} contentType={contentType} viewMoreText={slice.primary.view_more_text}
-      fallbackItemImage={slice.primary.fallback_item_image}
+      <ContentList
+        items={items}
+        contentType={slice.primary.content_type}
+        viewMoreText={slice.primary.view_more_text}
+        fallbackItemImage={slice.primary.fallback_item_image}
       />
     </Bounded>
   );
