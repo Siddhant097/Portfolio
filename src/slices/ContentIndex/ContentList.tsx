@@ -21,7 +21,7 @@ export default function ContentList({
 }: ContentListProps) {
     const component = useRef(null);
     const revealRef = useRef(null);
-    const itemsRef = useRef<Array<HTMLLIElement | null>>([]);
+    const itemsRef = useRef<Array<HTMLLIElement |null>>([]);
     const [currentItem, setCurrentItem] = useState<null | number>(null);
     // const [hovering, setHovering] = useState(false);
     const lastMousePos = useRef({ x: 0, y: 0});
@@ -123,7 +123,7 @@ export default function ContentList({
       {items.map((post, index) => (
         <li
           key={index}
-          ref={(el) => (itemsRef.current[index] = el)}
+          ref={(el) =>{ if(el)itemsRef.current[index] = el;}}
           onMouseEnter={() => onMouseEnter(index)}
           className="list-item opacity-0"
         >
